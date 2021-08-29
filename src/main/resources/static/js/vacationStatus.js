@@ -6,7 +6,7 @@ let table = $('#table');
 let tableBody = $('#tableBody');
 
 allVacations.click(() => {
-    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['Pending', 'Accepted', 'Rejected'])
+    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['Pending...', 'Accepted', 'Rejected'])
         .then((response) => response.json())
         .then((v) => {
                 tableBody.empty();
@@ -28,7 +28,7 @@ allVacations.click(() => {
 })
 
 pendingVacations.click(() => {
-    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['Pending'])
+    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['Pending...'])
         .then((response) => response.json())
         .then((v) => {
             tableBody.empty();
