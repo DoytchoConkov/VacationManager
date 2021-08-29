@@ -31,6 +31,12 @@
                 <input th:field="*{comment}" id="comment" type="text" class="form-control"
                        placeholder="Enter comment" >
             </div>
+            <div th:if="${errorDates}" class="alert alert-danger" role="alert">
+                Begin date must be before End date.
+            </div>
+            <div th:if="${dateCrossing}" class="alert alert-danger" role="alert">
+                You already have vacation between current dates.
+            </div>
 
             <div class="button-holder d-flex">
                 <button type="submit" class="btn btn-info btn-sm">Create Vacation query</button>

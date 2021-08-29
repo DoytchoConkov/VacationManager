@@ -23,4 +23,6 @@ public interface VacationService {
     void edit(Long id, VacationBindingModel vacationBindingModel);
 
     VacationBindingModel getById(Long id);
+
+    boolean isContainsDates(String beginDate, String endDate);
 }

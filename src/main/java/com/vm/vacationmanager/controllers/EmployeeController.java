@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/employee")
@@ -35,14 +36,30 @@ public class EmployeeController {
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String createVacationConfirm(@Valid @ModelAttribute("vacationBindingModel")
-                                              VacationBindingModel vacationBindingModel,
-                                      BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                                                VacationBindingModel vacationBindingModel,
+                                        BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("vacationBindingModel", vacationBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vacationBindingModel",
                     bindingResult);
             return "redirect:/employee/create";
         }
+
+        if (LocalDate.parse(vacationBindingModel.getBeginDate()).compareTo(LocalDate.parse(vacationBindingModel.getEndDate())) > 0) {
+            redirectAttributes.addFlashAttribute("errorDates", true);
+            redirectAttributes.addFlashAttribute("vacationBindingModel", vacationBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vacationBindingModel",
+                    bindingResult);
+            return "redirect:/employee/create";
+        }
+        if (vacationService.isContainsDates(vacationBindingModel.getBeginDate(),vacationBindingModel.getEndDate())) {
+            redirectAttributes.addFlashAttribute("dateCrossing", true);
+            redirectAttributes.addFlashAttribute("vacationBindingModel", vacationBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vacationBindingModel",
+                    bindingResult);
+            return "redirect:/employee/create";
+        }
+
         vacationService.save(vacationBindingModel);
         return "redirect:/employee/view";
     }
@@ -65,9 +82,9 @@ public class EmployeeController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
-    public String editVacation(@PathVariable Long id,Model model) {
+    public String editVacation(@PathVariable Long id, Model model) {
         if (!model.containsAttribute("vacationBindingModel")) {
-            model.addAttribute("_id",id);
+            model.addAttribute("_id", id);
             model.addAttribute("vacationBindingModel", vacationService.getById(id));
         }
         return "/vacation/edit-vacation";

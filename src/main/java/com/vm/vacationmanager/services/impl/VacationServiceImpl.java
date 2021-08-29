@@ -86,4 +86,10 @@ public class VacationServiceImpl implements VacationService {
     public VacationBindingModel getById(Long id) {
         return modelMapper.map(vacationRepository.findById(id).orElseThrow(),VacationBindingModel.class);
     }
+
+    @Override
+    public boolean isContainsDates(String beginDate, String endDate) {
+        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        return vacationRepository.isContainsDates(username,LocalDate.parse(beginDate),LocalDate.parse(endDate))>0;
+    }
 }
