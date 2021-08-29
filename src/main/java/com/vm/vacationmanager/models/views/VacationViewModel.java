@@ -9,6 +9,7 @@ public class VacationViewModel {
     private String comment;
     private String status;
     private String username;
+    private String email;
 
 
     public VacationViewModel() {
@@ -60,5 +61,13 @@ public class VacationViewModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

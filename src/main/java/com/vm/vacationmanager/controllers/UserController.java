@@ -53,6 +53,12 @@ public class UserController extends BaseController{
             return "redirect:/users/register";
         }
 
+        if (!userService.findUserByEmail(userRegisterBindingModel.getEmail())) {
+            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
+            redirectAttributes.addFlashAttribute("emailExist", true);
+            return "redirect:/users/register";
+        }
+
         if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("notEqual", true);

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,4 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select v from Vacation  as v join User as u on v.user.id= u.id where u.username= :username order by v.beginDate,v.endDate desc ")
     List<Vacation> findMyVacations(String username);
+
+    @Query("select u from User as u where u.email=:email")
+    Optional<User> findByEmail(String email);
 }

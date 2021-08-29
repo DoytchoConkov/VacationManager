@@ -110,5 +110,10 @@ public class UserServiceImpl implements UserService {
     public List<Vacation> findMyVacations(String username) {
         return userRepository.findMyVacations(username);
     }
+
+    @Override
+    public boolean findUserByEmail(String email) {
+        return this.userRepository.findByEmail(email).isEmpty();
+    }
 }
 

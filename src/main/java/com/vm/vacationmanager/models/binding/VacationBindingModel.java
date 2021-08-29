@@ -1,5 +1,9 @@
 package com.vm.vacationmanager.models.binding;
 
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+
 public class VacationBindingModel {
     private String beginDate;
     private String endDate;
@@ -8,6 +12,7 @@ public class VacationBindingModel {
     public VacationBindingModel() {
     }
 
+    @NotBlank(message = "Begin date can not be empty.")
     public String getBeginDate() {
         return beginDate;
     }
@@ -16,6 +21,7 @@ public class VacationBindingModel {
         this.beginDate = beginDate;
     }
 
+    @NotBlank(message = "End date can not be empty.")
     public String getEndDate() {
         return endDate;
     }

@@ -24,4 +24,6 @@ public interface UserService {
     boolean isMoreOneAdmin();
 
     List<Vacation> findMyVacations(String username);
+
+    boolean findUserByEmail(String email);
 }

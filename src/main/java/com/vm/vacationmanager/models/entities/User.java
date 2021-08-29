@@ -11,6 +11,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends BaseEntity {
     private String username;
+    private String email;
     private String password;
     private Set<UserRole> roles = new LinkedHashSet<>();
     private List<Vacation> vacations;
@@ -25,6 +26,15 @@ public class User extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Column(name = "email", nullable = false, unique = true, updatable = false)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Column(name = "password", nullable = false)

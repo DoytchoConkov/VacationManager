@@ -1,7 +1,10 @@
 package com.vm.vacationmanager.models.binding;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class UserRegisterBindingModel {
-    private String id;
     private String username;
     private String password;
     private String confirmPassword;
@@ -10,14 +13,8 @@ public class UserRegisterBindingModel {
     public UserRegisterBindingModel(){
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    @NotBlank(message = "Username can not be empty.")
+    @Size(min = 3, max = 20, message = "Username length must be between three and  twenty characters.")
     public String getUsername() {
         return username;
     }
@@ -26,6 +23,8 @@ public class UserRegisterBindingModel {
         this.username = username;
     }
 
+    @NotBlank(message = "Password can not be empty.")
+    @Size(min = 4, max = 20, message = "Password length must be between four and  twenty characters.")
     public String getPassword() {
         return password;
     }
@@ -42,6 +41,8 @@ public class UserRegisterBindingModel {
         this.confirmPassword = confirmPassword;
     }
 
+    @NotBlank(message = "Email can not be empty.")
+    @Email(message = "Invalid email")
     public String getEmail() {
         return email;
     }

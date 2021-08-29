@@ -44,6 +44,13 @@ public class EmployeeController {
                     bindingResult);
             return "redirect:/employee/create";
         }
+        if (LocalDate.parse(vacationBindingModel.getBeginDate()).compareTo(LocalDate.now()) <    0) {
+            redirectAttributes.addFlashAttribute("inPast", true);
+            redirectAttributes.addFlashAttribute("vacationBindingModel", vacationBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vacationBindingModel",
+                    bindingResult);
+            return "redirect:/employee/create";
+        }
 
         if (LocalDate.parse(vacationBindingModel.getBeginDate()).compareTo(LocalDate.parse(vacationBindingModel.getEndDate())) > 0) {
             redirectAttributes.addFlashAttribute("errorDates", true);

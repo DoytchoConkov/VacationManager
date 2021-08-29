@@ -51,6 +51,7 @@ public class VacationServiceImpl implements VacationService {
         return vacationRepository.findOrdered().stream().map(v -> {
             VacationViewModel vacationView = modelMapper.map(v, VacationViewModel.class);
             vacationView.setUsername(v.getUser().getUsername());
+            vacationView.setEmail(v.getUser().getEmail());
             return vacationView;
         }).collect(Collectors.toList());
     }
@@ -105,6 +106,7 @@ public class VacationServiceImpl implements VacationService {
                 .stream().map(v -> {
                     VacationViewModel vacationView = modelMapper.map(v, VacationViewModel.class);
                     vacationView.setUsername(v.getUser().getUsername());
+                    vacationView.setEmail(v.getUser().getEmail());
                     return vacationView;
                 }).collect(Collectors.toList());
     }

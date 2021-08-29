@@ -31,6 +31,9 @@
                 <input th:field="*{comment}" id="comment" type="text" class="form-control"
                        placeholder="Enter comment" >
             </div>
+            <div th:if="${inPast}" class="alert alert-danger" role="alert">
+                Date can not be in the past.
+            </div>
             <div th:if="${errorDates}" class="alert alert-danger" role="alert">
                 Begin date must be before End date.
             </div>

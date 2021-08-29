@@ -20,6 +20,7 @@ allVacations.click(() => {
                      <td>${newEndDate}</td>
                      <td>${o.comment}</td>
                      <td>${capitalizeFirstLetter(o.status.toLowerCase())}</td>
+                     <td>${o.email}</td>
                      <td>${o.username}</td>
                                    </tr>`;
                     tableBody.append(row);
@@ -42,6 +43,7 @@ pendingVacations.click(() => {
                      <td>${newEndDate}</td>
                      <td>${o.comment}</td>
                      <td>${capitalizeFirstLetter(o.status.toLowerCase())}</td>
+                     <td>${o.email}</td>
                      <td>${o.username}</td>
                                    </tr>`;
                 tableBody.append(row);
@@ -64,6 +66,7 @@ acceptedVacations.click(() => {
                      <td>${newEndDate}</td>
                      <td>${o.comment}</td>
                      <td>${capitalizeFirstLetter(o.status.toLowerCase())}</td>
+                      <td>${o.email}</td>
                      <td>${o.username}</td>
                                    </tr>`;
                 tableBody.append(row);
@@ -86,6 +89,7 @@ rejectedVacations.click(() => {
                      <td>${newEndDate}</td>
                      <td>${o.comment}</td>
                      <td>${capitalizeFirstLetter(o.status.toLowerCase())}</td>
+                     <td>${o.email}</td>
                      <td>${o.username}</td>
                                    </tr>`;
                 tableBody.append(row);
