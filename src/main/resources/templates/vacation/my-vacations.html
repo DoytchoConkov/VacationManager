@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+
+<th:block th:include="~{fragments/head}"></th:block>
+
+
+<body>
+
+<th:block th:include="~{fragments/nav-bar}"></th:block>
+<main>
+    <div class="container">
+        <h2 class="text-center text-white m-3">Vacations list</h2>
+        <div class="div-form mx-auto col-md-12 d-flex flex-column justify-content-center text-white">
+            <h4 th:if="${vacationBindingModels.size()}==0">You do not have vacations yet.</h4>
+            <table class="table-striped table-dark" th:if="${vacationBindingModels.size()}>0">
+                <thead>
+                <tr>
+                    <th>Begin Date</th>
+                    <th>End Date</th>
+                    <th>Comment</th>
+                    <th>Status</th>
+                    <th>Edit/Cancel</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pr : ${vacationBindingModels}">
+                    <td th:text="${#temporals.format(pr.beginDate, 'dd-MM-yyyy')}">Begin Date</td>
+                    <td th:text="${#temporals.format(pr.endDate, 'dd-MM-yyyy')}">End Date</td>
+                    <td th:text="${pr.comment}">comment</td>
+                    <td th:text="${pr.status}">status</td>
+                    <td th:if="${pr.status}=='Pending...'">
+                        <a class="vacation blue" th:href="@{/employee/edit/{id}(id=${pr.id})}">Edit</a>
+                        <form th:action="@{/employee/delete/{id}(id=${pr.id})}" th:method="delete">
+                            <button class="card-link yellow" type="submit">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<th:block th:include="~{fragments/footer}"></th:block>
+
+</body>
+</html>
