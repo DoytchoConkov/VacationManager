@@ -26,4 +26,8 @@ public interface UserService {
     List<Vacation> findMyVacations(String username);
 
     boolean findUserByEmail(String email);
+
+    List<UserViewModel> getAllUsers();
+
+    UserViewModel getUSerById(long id);
 }

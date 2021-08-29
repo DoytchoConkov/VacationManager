@@ -115,5 +115,20 @@ public class UserServiceImpl implements UserService {
     public boolean findUserByEmail(String email) {
         return this.userRepository.findByEmail(email).isEmpty();
     }
+
+    @Override
+    public List<UserViewModel> getAllUsers() {
+        return userRepository.findAll().stream().map(u->{
+            UserViewModel userView=modelMapper.map(u,UserViewModel.class);
+
+            return userView;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserViewModel getUSerById(long id) {
+        return modelMapper.map(userRepository.findById(id)
+                .orElseThrow( () -> new UserNotFoundException("User not found. Please seed the roles.")),UserViewModel.class);
+    }
 }
 

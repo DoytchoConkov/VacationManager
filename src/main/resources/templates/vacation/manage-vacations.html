@@ -21,7 +21,7 @@
                     <th>Comment</th>
                     <th>Employee name</th>
                     <th>Current status</th>
-                    <th>Change status</th>
+                    <th colspan="2">Change status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,14 +31,14 @@
                     <td th:text="${pr.comment}">comment</td>
                     <td th:text="${pr.username}">username</td>
                     <td th:text="${#strings.capitalize(#strings.toLowerCase(pr.status))}">status</td>
-                    <td>
-                        <form th:action="@{/manager/accept/{id}(id=${pr.id})}" th:method="post">
-                            <button class="card-link green" type="submit">Accept</button>
-                        </form>
-                        <form th:action="@{/manager/reject/{id}(id=${pr.id})}" th:method="post">
-                            <button class="card-link red" type="submit">Reject</button>
-                        </form>
-                    </td>
+
+                    <td><form th:action="@{/manager/accept/{id}(id=${pr.id})}" th:method="post" >
+                            <button class="card-link green" type="submit" th:if="${pr.status}!='ACCEPTED'">Accept</button>
+                        </form></td>
+                    <td><form th:action="@{/manager/reject/{id}(id=${pr.id})}" th:method="post" >
+                            <button class="card-link red" type="submit" th:if="${pr.status}!='REJECTED'">Reject</button>
+                        </form></td>
+
                 </tr>
                 </tbody>
             </table>
