@@ -9,7 +9,8 @@ public class Vacation extends  BaseEntity{
     private LocalDate beginDate;
     private LocalDate endDate;
     private String comment;
-    private String status;
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
     private User user;
 
     public Vacation() {
@@ -42,13 +43,13 @@ public class Vacation extends  BaseEntity{
         this.comment = comment;
     }
 
-    @Column(name = "status")
-    public String getStatus() {
+    @Enumerated(EnumType.ORDINAL)
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String resolution) {
-        this.status = resolution;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @ManyToOne

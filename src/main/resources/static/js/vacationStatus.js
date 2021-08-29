@@ -6,7 +6,7 @@ let table = $('#table');
 let tableBody = $('#tableBody');
 
 allVacations.click(() => {
-    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['Pending...', 'Accepted', 'Rejected'])
+    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['PENDING', 'ACCEPTED', 'REJECTED'])
         .then((response) => response.json())
         .then((v) => {
                 tableBody.empty();
@@ -19,7 +19,7 @@ allVacations.click(() => {
                      <td>${newBeginDate}</td>
                      <td>${newEndDate}</td>
                      <td>${o.comment}</td>
-                     <td>${o.status}</td>
+                     <td>${capitalizeFirstLetter(o.status.toLowerCase())}</td>
                      <td>${o.username}</td>
                                    </tr>`;
                     tableBody.append(row);
@@ -28,7 +28,7 @@ allVacations.click(() => {
 })
 
 pendingVacations.click(() => {
-    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['Pending...'])
+    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['PENDING'])
         .then((response) => response.json())
         .then((v) => {
             tableBody.empty();
@@ -41,7 +41,7 @@ pendingVacations.click(() => {
                      <td>${newBeginDate}</td>
                      <td>${newEndDate}</td>
                      <td>${o.comment}</td>
-                     <td>${o.status}</td>
+                     <td>${capitalizeFirstLetter(o.status.toLowerCase())}</td>
                      <td>${o.username}</td>
                                    </tr>`;
                 tableBody.append(row);
@@ -50,7 +50,7 @@ pendingVacations.click(() => {
 })
 
 acceptedVacations.click(() => {
-    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['Accepted'])
+    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['ACCEPTED'])
         .then((response) => response.json())
         .then((v) => {
             tableBody.empty();
@@ -63,7 +63,7 @@ acceptedVacations.click(() => {
                      <td>${newBeginDate}</td>
                      <td>${newEndDate}</td>
                      <td>${o.comment}</td>
-                     <td>${o.status}</td>
+                     <td>${capitalizeFirstLetter(o.status.toLowerCase())}</td>
                      <td>${o.username}</td>
                                    </tr>`;
                 tableBody.append(row);
@@ -72,7 +72,7 @@ acceptedVacations.click(() => {
 })
 
 rejectedVacations.click(() => {
-    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['Rejected'])
+    fetch('http://localhost:8080/vacations/filter-vacation?vacationStatus=' + ['REJECTED'])
         .then((response) => response.json())
         .then((v) => {
             tableBody.empty();
@@ -85,10 +85,14 @@ rejectedVacations.click(() => {
                      <td>${newBeginDate}</td>
                      <td>${newEndDate}</td>
                      <td>${o.comment}</td>
-                     <td>${o.status}</td>
+                     <td>${capitalizeFirstLetter(o.status.toLowerCase())}</td>
                      <td>${o.username}</td>
                                    </tr>`;
                 tableBody.append(row);
             })
         })
 })
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

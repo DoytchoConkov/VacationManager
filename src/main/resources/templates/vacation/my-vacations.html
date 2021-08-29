@@ -28,8 +28,8 @@
                     <td th:text="${#temporals.format(pr.beginDate, 'dd-MM-yyyy')}">Begin Date</td>
                     <td th:text="${#temporals.format(pr.endDate, 'dd-MM-yyyy')}">End Date</td>
                     <td th:text="${pr.comment}">comment</td>
-                    <td th:text="${pr.status}">status</td>
-                    <td th:if="${pr.status}=='Pending...'">
+                    <td th:text="${#strings.capitalize(#strings.toLowerCase(pr.status))}">status</td>
+                    <td th:if="${pr.status}=='PENDING'">
                         <a class="vacation blue" th:href="@{/employee/edit/{id}(id=${pr.id})}">Edit</a>
                         <form th:action="@{/employee/delete/{id}(id=${pr.id})}" th:method="delete">
                             <button class="card-link yellow" type="submit">Cancel</button>

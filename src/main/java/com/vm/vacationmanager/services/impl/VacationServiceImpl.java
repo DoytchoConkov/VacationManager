@@ -1,6 +1,7 @@
 package com.vm.vacationmanager.services.impl;
 
 import com.vm.vacationmanager.models.binding.VacationBindingModel;
+import com.vm.vacationmanager.models.entities.Status;
 import com.vm.vacationmanager.models.entities.User;
 import com.vm.vacationmanager.models.entities.Vacation;
 import com.vm.vacationmanager.models.views.VacationViewModel;
@@ -34,7 +35,7 @@ public class VacationServiceImpl implements VacationService {
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         Vacation vacation = modelMapper.map(vacationModel, Vacation.class);
         vacation.setUser(userService.getUserByUserName(username));
-        vacation.setStatus("Pending...");
+        vacation.setStatus(Status.PENDING);
         vacationRepository.save(vacation);
     }
 
@@ -42,13 +43,13 @@ public class VacationServiceImpl implements VacationService {
     public List<VacationViewModel> getMyVacations() {
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         return userService.findMyVacations(username).stream()
-                .map(v->modelMapper.map(v,VacationViewModel.class)).collect(Collectors.toList());
+                .map(v -> modelMapper.map(v, VacationViewModel.class)).collect(Collectors.toList());
     }
 
     @Override
     public List<VacationViewModel> getAllVacations() {
-        return vacationRepository.findOrdered().stream().map(v->{
-            VacationViewModel vacationView = modelMapper.map(v,VacationViewModel.class);
+        return vacationRepository.findOrdered().stream().map(v -> {
+            VacationViewModel vacationView = modelMapper.map(v, VacationViewModel.class);
             vacationView.setUsername(v.getUser().getUsername());
             return vacationView;
         }).collect(Collectors.toList());
@@ -56,15 +57,15 @@ public class VacationServiceImpl implements VacationService {
 
     @Override
     public void accept(Long id) {
-       Vacation vacation = vacationRepository.findById(id).orElseThrow();
-       vacation.setStatus("Accepted");
-       vacationRepository.save(vacation);
+        Vacation vacation = vacationRepository.findById(id).orElseThrow();
+        vacation.setStatus(Status.ACCEPTED);
+        vacationRepository.save(vacation);
     }
 
     @Override
     public void reject(Long id) {
         Vacation vacation = vacationRepository.findById(id).orElseThrow();
-        vacation.setStatus("Rejected");
+        vacation.setStatus(Status.REJECTED);
         vacationRepository.save(vacation);
     }
 
@@ -74,30 +75,35 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
-    public void edit(Long id, VacationBindingModel vacationBindingModel) {
+    public void update(Long id, VacationBindingModel vacationBindingModel) {
         Vacation vacation = vacationRepository.findById(id).orElseThrow();
         vacation.setBeginDate(LocalDate.parse(vacationBindingModel.getBeginDate()));
         vacation.setEndDate(LocalDate.parse(vacationBindingModel.getEndDate()));
         vacation.setComment(vacationBindingModel.getComment());
         vacationRepository.save(vacation);
+
     }
 
     @Override
     public VacationBindingModel getById(Long id) {
-        return modelMapper.map(vacationRepository.findById(id).orElseThrow(),VacationBindingModel.class);
+        return modelMapper.map(vacationRepository.findById(id).orElseThrow(), VacationBindingModel.class);
     }
 
     @Override
     public boolean isContainsDates(String beginDate, String endDate) {
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        return vacationRepository.isContainsDates(username,LocalDate.parse(beginDate),LocalDate.parse(endDate))>0;
+        return vacationRepository.isContainsDates(username, LocalDate.parse(beginDate), LocalDate.parse(endDate)) > 0;
     }
 
     @Override
     public List<VacationViewModel> getVacationByStatus(String[] vacationStatus) {
-        return vacationRepository.getVacationsByStatus(vacationStatus)
-                .stream().map(v->{
-                    VacationViewModel vacationView = modelMapper.map(v,VacationViewModel.class);
+        Status[] statuses = new Status[vacationStatus.length];
+        for (int i = 0; i < vacationStatus.length; i++) {
+            statuses[i]=Status.valueOf(vacationStatus[i]);
+        }
+        return vacationRepository.getVacationsByStatus(statuses)
+                .stream().map(v -> {
+                    VacationViewModel vacationView = modelMapper.map(v, VacationViewModel.class);
                     vacationView.setUsername(v.getUser().getUsername());
                     return vacationView;
                 }).collect(Collectors.toList());

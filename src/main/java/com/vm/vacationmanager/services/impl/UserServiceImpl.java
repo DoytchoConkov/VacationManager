@@ -1,5 +1,6 @@
 package com.vm.vacationmanager.services.impl;
 
+import com.vm.vacationmanager.errors.UserNotFoundException;
 import com.vm.vacationmanager.errors.UsernamesNotFoundException;
 import com.vm.vacationmanager.models.binding.UserRolesBindingModel;
 import com.vm.vacationmanager.models.entities.Roles;
@@ -50,13 +51,13 @@ public class UserServiceImpl implements UserService {
             if (userRepository.count() == 0) {
                 UserRole userRole = userRoleRepository.
                         findByRole(Roles.ADMIN).orElseThrow(() ->
-                                new IllegalStateException("ADMIN role not found. Please seed the roles."));
+                                new UserNotFoundException("ADMIN role not found. Please seed the roles."));
 
                 user.getRoles().add(userRole);
             }else{
                 UserRole userRole =userRoleRepository.
                         findByRole(Roles.EMPLOYEE).orElseThrow(() ->
-                                new IllegalStateException("EMPLOYEE role not found. Please seed the roles."));
+                                new UserNotFoundException("EMPLOYEE role not found. Please seed the roles."));
                 user.getRoles().add(userRole);
             }
                 this.userRepository.save(user);
@@ -93,7 +94,7 @@ public class UserServiceImpl implements UserService {
             userRolesBindingModel.getRoles().forEach(r -> {
                 UserRole userRole = userRoleRepository.
                         findByRole(Roles.valueOf(r)).orElseThrow(
-                                () -> new IllegalStateException("User Role not found. Please seed the roles."));
+                                () -> new UserNotFoundException("User Role not found. Please seed the roles."));
                 user.getRoles().add(userRole);
             });
             userRepository.save(user);

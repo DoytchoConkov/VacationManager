@@ -93,7 +93,7 @@ public class EmployeeController {
     @PutMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     public String editSparePart(@PathVariable Long id, @ModelAttribute VacationBindingModel vacationBindingModel) {
-        vacationService.edit(id, vacationBindingModel);
+        vacationService.update(id, vacationBindingModel);
         return "redirect:/employee/view";
     }
 }

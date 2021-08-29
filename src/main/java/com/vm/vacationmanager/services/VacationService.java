@@ -20,7 +20,7 @@ public interface VacationService {
 
     void delete(Long id);
 
-    void edit(Long id, VacationBindingModel vacationBindingModel);
+    void update(Long id, VacationBindingModel vacationBindingModel);
 
     VacationBindingModel getById(Long id);
 

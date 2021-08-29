@@ -30,7 +30,7 @@
                     <td th:text="${#temporals.format(pr.endDate, 'dd-MM-yyyy')}">End Date</td>
                     <td th:text="${pr.comment}">comment</td>
                     <td th:text="${pr.username}">username</td>
-                    <td th:text="${pr.status}">status</td>
+                    <td th:text="${#strings.capitalize(#strings.toLowerCase(pr.status))}">status</td>
                     <td>
                         <form th:action="@{/manager/accept/{id}(id=${pr.id})}" th:method="post">
                             <button class="card-link green" type="submit">Accept</button>

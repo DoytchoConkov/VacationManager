@@ -36,7 +36,7 @@
                     <td th:text="${#temporals.format(pr.beginDate, 'dd-MM-yyyy')}">Begin Date</td>
                     <td th:text="${#temporals.format(pr.endDate, 'dd-MM-yyyy')}">End Date</td>
                     <td th:text="${pr.comment}">comment</td>
-                    <td th:text="${pr.status}">status</td>
+                    <td th:text="${#strings.capitalize(#strings.toLowerCase(pr.status))}">status</td>
                     <td th:text="${pr.username}">username</td>
                 </tr>
                 </tbody>
