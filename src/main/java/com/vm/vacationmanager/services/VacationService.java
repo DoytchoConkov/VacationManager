@@ -25,4 +25,6 @@ public interface VacationService {
     VacationBindingModel getById(Long id);
 
     boolean isContainsDates(String beginDate, String endDate);
+
+    List<VacationViewModel> getVacationByStatus(String[] vacationStatus);
 }

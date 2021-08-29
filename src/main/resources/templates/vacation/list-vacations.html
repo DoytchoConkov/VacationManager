@@ -13,7 +13,15 @@
         <h2 class="text-center text-white m-3">Vacations list</h2>
         <div class="div-form mx-auto col-md-12 d-flex flex-column justify-content-center text-white">
             <h4 th:if="${vacationBindingModels.size()}==0">There are no vacations yet.</h4>
-            <table class="table-striped table-dark" th:if="${vacationBindingModels.size()}>0">
+            <div class="filter">
+               <h5>Filter vacations: </h5>
+                <div class="filter-select" id="all">All</div>
+                <div class="filter-select" id="pending">Pending</div>
+                <div class="filter-select" id="accepted">Accepted</div>
+                <div class="filter-select" id="rejected">Rejected</div>
+            </div>
+
+            <table class="table-striped table-dark" id="table" th:if="${vacationBindingModels.size()}>0">
                 <thead>
                 <tr>
                     <th>Begin Date</th>
@@ -23,7 +31,7 @@
                     <th>Employee name</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBody">
                 <tr th:each="pr : ${vacationBindingModels}">
                     <td th:text="${#temporals.format(pr.beginDate, 'dd-MM-yyyy')}">Begin Date</td>
                     <td th:text="${#temporals.format(pr.endDate, 'dd-MM-yyyy')}">End Date</td>
@@ -39,4 +47,6 @@
 <th:block th:include="~{fragments/footer}"></th:block>
 
 </body>
+<script src="/js/vacationStatus.js" type="text/javascript"></script>
+
 </html>

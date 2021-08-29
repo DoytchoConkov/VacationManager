@@ -92,4 +92,14 @@ public class VacationServiceImpl implements VacationService {
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         return vacationRepository.isContainsDates(username,LocalDate.parse(beginDate),LocalDate.parse(endDate))>0;
     }
+
+    @Override
+    public List<VacationViewModel> getVacationByStatus(String[] vacationStatus) {
+        return vacationRepository.getVacationsByStatus(vacationStatus)
+                .stream().map(v->{
+                    VacationViewModel vacationView = modelMapper.map(v,VacationViewModel.class);
+                    vacationView.setUsername(v.getUser().getUsername());
+                    return vacationView;
+                }).collect(Collectors.toList());
+    }
 }

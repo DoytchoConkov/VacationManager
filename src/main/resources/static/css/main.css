@@ -7,6 +7,25 @@ body {
     background-color: #464646;
 }
 
+.filter {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.filter-select {
+    background: gray;
+    color: white;
+    padding: 0 5px;
+    margin: 5px;
+}
+
+.filter-select:hover {
+    cursor: pointer;
+    background: darkgrey;
+    color: black;
+}
+
 .center {
     display: block;
     margin-left: auto;
@@ -23,11 +42,11 @@ footer {
     width: 100%;
 }
 
-form{
+form {
     display: inline;
 }
 
-button{
+button {
     color: white;
 }
 
@@ -51,7 +70,7 @@ button{
     background: darkblue;
 }
 
-.yellow{
+.yellow {
     background: darkgoldenrod;
 }
 
